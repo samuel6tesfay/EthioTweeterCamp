@@ -35,7 +35,7 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
             children: [
               TextFormField(
                   initialValue:
-                      widget.args.edit ? widget.args.thread?.code : '',
+                      widget.args.edit ? widget.args.thread?.name: '',
                   validator: (value) {
                     if (value != null && value.isEmpty) {
                       return 'Please enter thread code';
@@ -50,7 +50,7 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
                   }),
               TextFormField(
                   initialValue:
-                      widget.args.edit ? widget.args.thread?.title : '',
+                      widget.args.edit ? widget.args.thread?.body : '',
                   validator: (value) {
                     if (value != null && value.isEmpty) {
                       return 'Please enter thread title';
@@ -63,7 +63,7 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
                   }),
               TextFormField(
                   initialValue: widget.args.edit
-                      ? widget.args.thread?.ects.toString()
+                      ? widget.args.thread?.imagePath.toString()
                       : '',
                   validator: (value) {
                     if (value != null && value.isEmpty) {
@@ -79,22 +79,7 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
                       }
                     });
                   }),
-              TextFormField(
-                  initialValue:
-                      widget.args.edit ? widget.args.thread?.description : '',
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return 'Please enter thread description';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(labelText: 'Thread Description'),
-                  onSaved: (value) {
-                    setState(() {
-                      this._thread["description"] = value;
-                    });
-                  }),
-              Padding(
+             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton.icon(
                   onPressed: () {
@@ -104,20 +89,16 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
                       final ThreadEvent event = widget.args.edit
                           ? ThreadUpdate(
                               Thread(
-                                id: widget.args.thread?.id,
-                                code: this._thread["code"],
-                                title: this._thread["title"],
-                                ects: this._thread["ects"],
-                                description: this._thread["description"],
+                                name: this._thread["name"],
+                                body: this._thread["body"],
+                                imagePath: this._thread["imagePath"],
                               ),
                             )
                           : ThreadCreate(
                               Thread(
-                                id: null,
-                                code: this._thread["code"],
-                                title: this._thread["title"],
-                                ects: this._thread["ects"],
-                                description: this._thread["description"],
+                                name: this._thread["name"],
+                                body: this._thread["body"],
+                                imagePath: this._thread["imagePath"],
                               ),
                             );
                       BlocProvider.of<ThreadBloc>(context).add(event);

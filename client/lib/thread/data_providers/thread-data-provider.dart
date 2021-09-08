@@ -10,10 +10,10 @@ class ThreadDataProvider {
     final http.Response response = await http.post(Uri.parse(_baseUrl),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
-          "code": thread.code,
-          "title": thread.title,
-          "ects": thread.ects,
-          "description": thread.description
+          "name": thread.name,
+          "date": thread.date,
+          "body": thread.body,
+          "imagePath": thread.imagePath
         }));
 
     if (response.statusCode == 201) {
@@ -49,10 +49,10 @@ class ThreadDataProvider {
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
           "id": id,
-          "code": thread.code,
-          "title": thread.title,
-          "ects": thread.ects,
-          "description": thread.description
+          "name": thread.name,
+          "date": thread.date,
+          "body": thread.body,
+          "imagePath": thread.imagePath
         }));
 
     if (response.statusCode == 200) {

@@ -27,8 +27,8 @@ class ThreadsList extends StatelessWidget {
             return ListView.builder(
               itemCount: threads.length,
               itemBuilder: (_, idx) => ListTile(
-                title: Text('${threads.elementAt(idx).title}'),
-                subtitle: Text('${threads.elementAt(idx).code}'),
+                title: Text('${threads.elementAt(idx).name}'),
+                subtitle: Text('${threads.elementAt(idx).body}'),
                 onTap: () => Navigator.of(context).pushNamed(
                     ThreadDetail.routeName,
                     arguments: threads.elementAt(idx)),

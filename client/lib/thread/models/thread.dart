@@ -1,23 +1,23 @@
 class Thread {
   final int? id;
-  final String code;
-  final String title;
-  final int ects;
-  final String? description;
+  final String name;
+  final String date;
+  final String body;
+  final String imagePath;
 
   Thread(
-      {required this.id,
-      required this.code,
-      required this.title,
-      required this.ects,
-      this.description});
+      { this.id,
+      required this.name,
+      this.date = '',
+      required this.body,
+      required this.imagePath});
 
   factory Thread.fromJson(Map<String, dynamic> json) {
     return Thread(
         id: json['id'],
-        code: json['code'],
-        title: json['title'],
-        ects: json['ects'],
-        description: json['description']);
+        name: json['name'],
+        date: json['date'],
+        body: json['body'],
+        imagePath: json['imagepath']);
   }
 }

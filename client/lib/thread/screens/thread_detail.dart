@@ -18,7 +18,7 @@ class ThreadDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${this.thread.code}'),
+        title: Text('${this.thread.name}'),
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
@@ -44,8 +44,8 @@ class ThreadDetail extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              title: Text('Title: ${this.thread.title}'),
-              subtitle: Text('ECTS: ${this.thread.ects}'),
+              title: Text('Title: ${this.thread.body}'),
+              subtitle: Text('ECTS: ${this.thread.imagePath}'),
             ),
             Text(
               'Details',
@@ -57,7 +57,7 @@ class ThreadDetail extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text(this.thread.description ?? ""),
+            Text(this.thread.body ),
           ],
         ),
       ),
