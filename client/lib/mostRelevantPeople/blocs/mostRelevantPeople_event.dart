@@ -21,7 +21,7 @@ class MostRelevantPeopleCreate extends MostRelevantPeopleEvent {
   List<Object> get props => [mostRelevantPeople];
 
   @override
-  String toString() => 'Thread Created {course: $mostRelevantPeople}';
+  String toString() => 'Thread Created {MostRelevantPeople: $mostRelevantPeople}';
 }
 
 class MostRelevantPeopleUpdate extends MostRelevantPeopleEvent {
@@ -33,7 +33,7 @@ class MostRelevantPeopleUpdate extends MostRelevantPeopleEvent {
   List<Object> get props => [mostRelevantPeople];
 
   @override
-  String toString() => 'mostRelevantPeople Updated {mostRelevantPeople: $thread}';
+  String toString() => 'mostRelevantPeople Updated {mostRelevantPeople: $mostRelevantPeople}';
 }
 
 class MostRelevantPeopleDelete extends MostRelevantPeopleEvent {

@@ -1,53 +1,53 @@
-import '/thread/repository/thread-repository.dart';
+import '../repository/trend-repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'thread_event.dart';
-import 'thread_state.dart';
+import 'trend_event.dart';
+import 'trend_state.dart';
 
-class ThreadBloc extends Bloc<ThreadEvent, ThreadState> {
-  final ThreadRepository threadRepository;
+class TrendBloc extends Bloc<TrendEvent, TrendState> {
+  final TrendRepository trendRepository;
 
-  ThreadBloc({required this.threadRepository}) : super(ThreadLoading());
+  TrendBloc({required this.trendRepository}) : super(TrendLoading());
 
   @override
-  Stream<ThreadState> mapEventToState(ThreadEvent event) async* {
-    if (event is ThreadLoad) {
-      yield ThreadLoading();
+  Stream<TrendState> mapEventToState(TrendEvent event) async* {
+    if (event is TrendLoad) {
+      yield TrendLoading();
       try {
-        final threads = await threadRepository.fetchAll();
-        yield ThreadOperationSuccess(threads);
+        final trends = await trendRepository.fetchAll();
+        yield TrendOperationSuccess(trends);
       } catch (_) {
-        yield ThreadOperationFailure();
+        yield TrendOperationFailure();
       }
     }
 
-    if (event is ThreadCreate) {
+    if (event is TrendCreate) {
       try {
-        await threadRepository.create(event.thread);
-        final threads = await threadRepository.fetchAll();
-        yield ThreadOperationSuccess(threads);
+        await trendRepository.create(event.trend);
+        final trends = await trendRepository.fetchAll();
+        yield TrendOperationSuccess(trends);
       } catch (_) {
-        yield ThreadOperationFailure();
+        yield TrendOperationFailure();
       }
     }
 
-    if (event is ThreadUpdate) {
+    if (event is TrendUpdate) {
       try {
-        await threadRepository.update(event.thread.id ?? 0, event.thread);
-        final threads = await threadRepository.fetchAll();
-        yield ThreadOperationSuccess(threads);
+        await trendRepository.update(event.trend.id ?? 0, event.trend);
+        final trends = await trendRepository.fetchAll();
+        yield TrendOperationSuccess(trends);
       } catch (_) {
-        yield ThreadOperationFailure();
+        yield TrendOperationFailure();
       }
     }
 
-    if (event is ThreadDelete) {
+    if (event is TrendDelete) {
       try {
-        await threadRepository.delete(event.id);
-        final threads = await threadRepository.fetchAll();
-        yield ThreadOperationSuccess(threads);
+        await trendRepository.delete(event.id);
+        final trends = await trendRepository.fetchAll();
+        yield TrendOperationSuccess(trends);
       } catch (_) {
-        yield ThreadOperationFailure();
+        yield TrendOperationFailure();
       }
     }
   }

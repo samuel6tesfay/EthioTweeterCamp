@@ -1,30 +1,30 @@
-import '../blocs/thread_bloc.dart';
-import '../blocs/thread_event.dart';
-import '../models/thread.dart';
+import '../blocs/trend_bloc.dart';
+import '../blocs/trend_event.dart';
+import '../models/trend.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'thread_add_update.dart';
-import 'thread_route.dart';
-import 'thread_list.dart';
+import 'trend_add_update.dart';
+import 'trend_route.dart';
+import 'trend_list.dart';
 
-class ThreadDetail extends StatelessWidget {
-  static const routeName = 'threadDetail';
-  final Thread thread;
+class TrendDetail extends StatelessWidget {
+  static const routeName = 'trendDetail';
+  final Trend trend;
 
-  ThreadDetail({required this.thread});
+  TrendDetail({required this.trend});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${this.thread.name}'),
+        title: Text('${this.trend.body}'),
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () => Navigator.of(context).pushNamed(
-              AddUpdateThread.routeName,
-              arguments: ThreadArgument(thread: this.thread, edit: true),
+              AddUpdateTrend.routeName,
+              arguments: TrendArgument(trend: this.trend, edit: true),
             ),
           ),
           SizedBox(
@@ -33,10 +33,10 @@ class ThreadDetail extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
-                BlocProvider.of<ThreadBloc>(context)
-                    .add(ThreadDelete(this.thread.id ?? 0));
+                BlocProvider.of<TrendBloc>(context)
+                    .add(TrendDelete(this.trend.id ?? 0));
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    ThreadsList.routeName, (route) => false);
+                    TrendsList.routeName, (route) => false);
               }),
         ],
       ),
@@ -44,8 +44,7 @@ class ThreadDetail extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              title: Text('Title: ${this.thread.body}'),
-              subtitle: Text('ECTS: ${this.thread.imagePath}'),
+              title: Text('Title: ${this.trend.body}'),
             ),
             Text(
               'Details',
@@ -57,7 +56,7 @@ class ThreadDetail extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text(this.thread.body ),
+            Text(this.trend.body ),
           ],
         ),
       ),

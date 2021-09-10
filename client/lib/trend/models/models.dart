@@ -1,1 +1,1 @@
-export 'thread.dart';
+export 'trend.dart';

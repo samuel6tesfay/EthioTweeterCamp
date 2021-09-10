@@ -1,49 +1,49 @@
-import '/thread/models/thread.dart';
+import '../models/trend.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class ThreadEvent extends Equatable {
-  const ThreadEvent();
+abstract class TrendEvent extends Equatable {
+  const TrendEvent();
 }
 
-class ThreadLoad extends ThreadEvent {
-  const ThreadLoad();
+class TrendLoad extends TrendEvent {
+  const TrendLoad();
 
   @override
   List<Object> get props => [];
 }
 
-class ThreadCreate extends ThreadEvent {
-  final Thread thread;
+class TrendCreate extends TrendEvent {
+  final Trend trend;
 
-  const ThreadCreate(this.thread);
-
-  @override
-  List<Object> get props => [thread];
+  const TrendCreate(this.trend);
 
   @override
-  String toString() => 'Thread Created {course: $thread}';
+  List<Object> get props => [trend];
+
+  @override
+  String toString() => 'Thread Created {course: $trend}';
 }
 
-class ThreadUpdate extends ThreadEvent {
-  final Thread thread;
+class TrendUpdate extends TrendEvent {
+  final Trend trend;
 
-  const ThreadUpdate(this.thread);
-
-  @override
-  List<Object> get props => [thread];
+  const TrendUpdate(this.trend);
 
   @override
-  String toString() => 'Course Updated {course: $thread}';
+  List<Object> get props => [trend];
+
+  @override
+  String toString() => 'Course Updated {trend: $trend}';
 }
 
-class ThreadDelete extends ThreadEvent {
+class TrendDelete extends TrendEvent {
   final int id;
 
-  const ThreadDelete(this.id);
+  const TrendDelete(this.id);
 
   @override
   List<Object> get props => [id];
 
   @override
-  toString() => 'Thread Deleted {thread Id: $id}';
+  toString() => 'trend Deleted {trend Id: $id}';
 }

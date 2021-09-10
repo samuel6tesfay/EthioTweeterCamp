@@ -1,22 +1,22 @@
-import '../models/thread.dart';
+import '../models/trend.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class ThreadState extends Equatable {
-  const ThreadState();
+abstract class TrendState extends Equatable {
+  const TrendState();
 
   @override
   List<Object> get props => [];
 }
 
-class ThreadLoading extends ThreadState {}
+class TrendLoading extends TrendState {}
 
-class ThreadOperationSuccess extends ThreadState {
-  final Iterable<Thread> threads;
+class TrendOperationSuccess extends TrendState {
+  final Iterable<Trend> trends;
 
-  ThreadOperationSuccess([this.threads = const []]);
+  TrendOperationSuccess([this.trends = const []]);
 
   @override
-  List<Object> get props => [threads];
+  List<Object> get props => [trends];
 }
 
-class ThreadOperationFailure extends ThreadState {}
+class TrendOperationFailure extends TrendState {}

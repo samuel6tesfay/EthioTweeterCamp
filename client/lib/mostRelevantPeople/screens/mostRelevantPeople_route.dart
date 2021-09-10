@@ -1,40 +1,40 @@
-import '../models/thread.dart';
+import '../models/mostRelevantPeople.dart';
 import 'package:flutter/material.dart';
 
-import 'thread_add_update.dart';
-import 'thread_detail.dart';
-import 'thread_list.dart';
+import 'mostRelevantPeople_add_update.dart';
+import 'mostRelevantPeople_detail.dart';
+import 'mostRelevantPeople_list.dart';
 
-class ThreadAppRoute {
+class MostRelevantPeopleAppRoute {
   static Route generateRoute(RouteSettings settings) {
     if (settings.name == '/') {
-      return MaterialPageRoute(builder: (context) => ThreadsList());
+      return MaterialPageRoute(builder: (context) => MostRelevantPeoplesList());
     }
 
-    if (settings.name == AddUpdateThread.routeName) {
-      ThreadArgument args = settings.arguments as ThreadArgument;
+    if (settings.name == AddUpdateMostRelevantPeople.routeName) {
+      MostRelevantPeopleArgument args = settings.arguments as MostRelevantPeopleArgument;
       return MaterialPageRoute(
-        builder: (context) => AddUpdateThread(
+        builder: (context) => AddUpdateMostRelevantPeople(
           args: args,
         ),
       );
     }
 
-    if (settings.name == ThreadDetail.routeName) {
-      Thread thread = settings.arguments as Thread;
+    if (settings.name == MostRelevantPeopleDetail.routeName) {
+      MostRelevantPeople mostRelevantPeople = settings.arguments as MostRelevantPeople;
       return MaterialPageRoute(
-        builder: (context) => ThreadDetail(
-          thread: thread,
+        builder: (context) => MostRelevantPeopleDetail(
+          mostRelevantPeople: mostRelevantPeople,
         ),
       );
     }
 
-    return MaterialPageRoute(builder: (context) => ThreadsList());
+    return MaterialPageRoute(builder: (context) => MostRelevantPeoplesList());
   }
 }
 
-class ThreadArgument {
-  final Thread? thread;
+class MostRelevantPeopleArgument {
+  final MostRelevantPeople? mostRelevantPeople;
   final bool edit;
-  ThreadArgument({this.thread, required this.edit});
+  MostRelevantPeopleArgument({this.mostRelevantPeople, required this.edit});
 }

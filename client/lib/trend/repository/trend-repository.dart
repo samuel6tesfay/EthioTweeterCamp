@@ -1,19 +1,19 @@
-import '../data_providers/thread-data-provider.dart';
-import '../models/thread.dart';
+import '../data_providers/trend-data-provider.dart';
+import '../models/trend.dart';
 
-class ThreadRepository {
-  final ThreadDataProvider dataProvider;
-  ThreadRepository(this.dataProvider);
+class TrendRepository {
+  final TrendDataProvider dataProvider;
+  TrendRepository(this.dataProvider);
 
-  Future<Thread> create(Thread thread) async {
-    return this.dataProvider.create(thread);
+  Future<Trend> create(Trend trend) async {
+    return this.dataProvider.create(trend);
   }
 
-  Future<Thread> update(int id, Thread thread) async {
-    return this.dataProvider.update(id, thread);
+  Future<Trend> update(int id, Trend trend) async {
+    return this.dataProvider.update(id, trend);
   }
 
-  Future<List<Thread>> fetchAll() async {
+  Future<List<Trend>> fetchAll() async {
     return this.dataProvider.fetchAll();
   }
 

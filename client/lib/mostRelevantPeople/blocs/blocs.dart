@@ -1,3 +1,3 @@
-export 'thread_bloc.dart';
-export 'thread_event.dart';
-export 'thread_state.dart';
+export 'mostRelevantPeople_bloc.dart';
+export 'mostRelevantPeople_event.dart';
+export 'mostRelevantPeople_state.dart';

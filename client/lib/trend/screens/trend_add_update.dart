@@ -1,31 +1,31 @@
-import '../blocs/thread_bloc.dart';
-import '../blocs/thread_event.dart';
-import '../models/thread.dart';
+import '../blocs/trend_bloc.dart';
+import '../blocs/trend_event.dart';
+import '../models/trend.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'thread_route.dart';
-import 'thread_list.dart';
+import 'trend_route.dart';
+import 'trend_list.dart';
 
-class AddUpdateThread extends StatefulWidget {
+class AddUpdateTrend extends StatefulWidget {
   static const routeName = 'threadAddUpdate';
-  final ThreadArgument args;
+  final TrendArgument args;
 
-  AddUpdateThread({required this.args});
+  AddUpdateTrend({required this.args});
   @override
-  _AddUpdateThreadState createState() => _AddUpdateThreadState();
+  _AddUpdateTrendState createState() => _AddUpdateTrendState();
 }
 
-class _AddUpdateThreadState extends State<AddUpdateThread> {
+class _AddUpdateTrendState extends State<AddUpdateTrend> {
   final _formKey = GlobalKey<FormState>();
 
-  final Map<String, dynamic> _thread = {};
+  final Map<String, dynamic> _trend = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${widget.args.edit ? "Edit Thread" : "Add New Thread"}'),
+        title: Text('${widget.args.edit ? "Edit Trend" : "Add New Trend"}'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -35,48 +35,17 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
             children: [
               TextFormField(
                   initialValue:
-                      widget.args.edit ? widget.args.thread?.name: '',
+                      widget.args.edit ? widget.args.trend?.body: '',
                   validator: (value) {
                     if (value != null && value.isEmpty) {
-                      return 'Please enter thread code';
+                      return 'Please enter trend code';
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: 'Thread Code'),
+                  decoration: InputDecoration(labelText: 'Trend Code'),
                   onSaved: (value) {
                     setState(() {
-                      this._thread["code"] = value;
-                    });
-                  }),
-              TextFormField(
-                  initialValue:
-                      widget.args.edit ? widget.args.thread?.body : '',
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return 'Please enter thread title';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(labelText: 'Thread Title'),
-                  onSaved: (value) {
-                    this._thread["title"] = value;
-                  }),
-              TextFormField(
-                  initialValue: widget.args.edit
-                      ? widget.args.thread?.imagePath.toString()
-                      : '',
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return 'Please enter thread ects';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(labelText: 'Thread ECTS'),
-                  onSaved: (value) {
-                    setState(() {
-                      if (value != null) {
-                        this._thread["ects"] = int.parse(value);
-                      }
+                      this._trend["body"] = value;
                     });
                   }),
              Padding(
@@ -86,24 +55,20 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
                     final form = _formKey.currentState;
                     if (form != null && form.validate()) {
                       form.save();
-                      final ThreadEvent event = widget.args.edit
-                          ? ThreadUpdate(
-                              Thread(
-                                name: this._thread["name"],
-                                body: this._thread["body"],
-                                imagePath: this._thread["imagePath"],
+                      final TrendEvent event = widget.args.edit
+                          ? TrendUpdate(
+                              Trend(
+                                body: this._trend["body"],
                               ),
                             )
-                          : ThreadCreate(
-                              Thread(
-                                name: this._thread["name"],
-                                body: this._thread["body"],
-                                imagePath: this._thread["imagePath"],
+                          : TrendCreate(
+                              Trend(
+                                body: this._trend["body"],
                               ),
                             );
-                      BlocProvider.of<ThreadBloc>(context).add(event);
+                      BlocProvider.of<TrendBloc>(context).add(event);
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          ThreadsList.routeName, (route) => false);
+                          TrendsList.routeName, (route) => false);
                     }
                   },
                   label: Text('SAVE'),

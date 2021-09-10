@@ -3,69 +3,65 @@ import 'dart:convert';
 import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
-class ThreadDataProvider {
+class MostRelevantPeopleDataProvider {
   static final String _baseUrl = "http://10.0.2.2:9191/api/v1/threads";
 
-  Future<Thread> create(Thread thread) async {
+  Future<MostRelevantPeople> create(MostRelevantPeople mostRelevantPeople) async {
     final http.Response response = await http.post(Uri.parse(_baseUrl),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
-          "name": thread.name,
-          "date": thread.date,
-          "body": thread.body,
-          "imagePath": thread.imagePath
+          "body": mostRelevantPeople.body,
+          "imagePath": mostRelevantPeople.imagePath
         }));
 
     if (response.statusCode == 201) {
-      return Thread.fromJson(jsonDecode(response.body));
+      return MostRelevantPeople.fromJson(jsonDecode(response.body));
     }
     {
-      throw Exception("Failed to create course");
+      throw Exception("Failed to create mostRelevantPeople");
     }
   }
 
-  Future<Thread> fetchByCode() async {
+  Future<MostRelevantPeople> fetchByCode() async {
     final response = await http.get(Uri.parse(_baseUrl));
 
     if (response.statusCode == 200) {
-      return Thread.fromJson(jsonDecode(response.body));
+      return MostRelevantPeople.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception("Fetching Thread by code failed");
+      throw Exception("Fetching mostRelevantPeople  failed");
     }
   }
 
-  Future<List<Thread>> fetchAll() async {
+  Future<List<MostRelevantPeople>> fetchAll() async {
     final response = await http.get(Uri.parse(_baseUrl));
     if (response.statusCode == 200) {
-      final threads = jsonDecode(response.body) as List;
-      return threads.map((c) => Thread.fromJson(c)).toList();
+      final mostRelevantPeoples = jsonDecode(response.body) as List;
+      return mostRelevantPeoples.map((c) => MostRelevantPeople.fromJson(c)).toList();
     } else {
-      throw Exception("Could not fetch threads");
+      throw Exception("Could not fetch mostRelevantPeoples");
     }
   }
 
-  Future<Thread> update(int id, Thread thread) async {
+  Future<MostRelevantPeople> update(int id, MostRelevantPeople mostRelevantPeople) async {
     final response = await http.put(Uri.parse("$_baseUrl/$id"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
           "id": id,
-          "name": thread.name,
-          "date": thread.date,
-          "body": thread.body,
-          "imagePath": thread.imagePath
+          "body": mostRelevantPeople.body,
+          "imagePath": mostRelevantPeople.imagePath
         }));
 
     if (response.statusCode == 200) {
-      return Thread.fromJson(jsonDecode(response.body));
+      return MostRelevantPeople.fromJson(jsonDecode(response.body));
     } else {
-      throw Exception("Could not update the thread");
+      throw Exception("Could not update the mostRelevantPeople");
     }
   }
 
   Future<void> delete(int id) async {
     final response = await http.delete(Uri.parse("$_baseUrl/$id"));
     if (response.statusCode != 204) {
-      throw Exception("Field to delete the thread");
+      throw Exception("Field to delete the mostRelevantPeople");
     }
   }
 }

@@ -1,3 +1,3 @@
-export 'thread_bloc.dart';
-export 'thread_event.dart';
-export 'thread_state.dart';
+export 'trend_bloc.dart';
+export 'trend_event.dart';
+export 'trend_state.dart';

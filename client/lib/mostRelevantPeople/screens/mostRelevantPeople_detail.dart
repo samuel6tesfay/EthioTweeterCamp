@@ -36,7 +36,7 @@ class MostRelevantPeopleDetail extends StatelessWidget {
                 BlocProvider.of<MostRelevantPeopleBloc>(context)
                     .add(MostRelevantPeopleDelete(this.mostRelevantPeople.id ?? 0));
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                    TrendsList.routeName, (route) => false);
+                    MostRelevantPeoplesList.routeName, (route) => false);
               }),
         ],
       ),
