@@ -35,51 +35,46 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
             children: [
               TextFormField(
                   initialValue:
-                      widget.args.edit ? widget.args.thread?.name: '',
+                      widget.args.edit ? widget.args.thread?.name : '',
                   validator: (value) {
                     if (value != null && value.isEmpty) {
-                      return 'Please enter thread code';
+                      return 'Please enter thread name';
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: 'Thread Code'),
+                  decoration: InputDecoration(labelText: 'Thread name'),
                   onSaved: (value) {
                     setState(() {
-                      this._thread["code"] = value;
+                      this._thread["name"] = value;
                     });
+                  }),
+              TextFormField(
+                  initialValue:
+                      widget.args.edit ? widget.args.thread?.username : '',
+                  validator: (value) {
+                    if (value != null && value.isEmpty) {
+                      return 'Please enter thread username';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(labelText: 'Thread username'),
+                  onSaved: (value) {
+                    this._thread["username"] = value;
                   }),
               TextFormField(
                   initialValue:
                       widget.args.edit ? widget.args.thread?.body : '',
                   validator: (value) {
                     if (value != null && value.isEmpty) {
-                      return 'Please enter thread title';
+                      return 'Please enter thread body';
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: 'Thread Title'),
+                  decoration: InputDecoration(labelText: 'Thread body'),
                   onSaved: (value) {
-                    this._thread["title"] = value;
+                    this._thread["body"] = value;
                   }),
-              TextFormField(
-                  initialValue: widget.args.edit
-                      ? widget.args.thread?.imagePath.toString()
-                      : '',
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return 'Please enter thread ects';
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(labelText: 'Thread ECTS'),
-                  onSaved: (value) {
-                    setState(() {
-                      if (value != null) {
-                        this._thread["ects"] = int.parse(value);
-                      }
-                    });
-                  }),
-             Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton.icon(
                   onPressed: () {
@@ -89,21 +84,23 @@ class _AddUpdateThreadState extends State<AddUpdateThread> {
                       final ThreadEvent event = widget.args.edit
                           ? ThreadUpdate(
                               Thread(
-                                name: this._thread["name"],
-                                body: this._thread["body"],
-                                imagePath: this._thread["imagePath"],
-                              ),
+                                  id: widget.args.thread?.id,
+                                  name: this._thread["name"],
+                                  username: this._thread["username"],
+                                  body: this._thread["body"]),
                             )
                           : ThreadCreate(
                               Thread(
                                 name: this._thread["name"],
+                                username: this._thread["username"],
                                 body: this._thread["body"],
-                                imagePath: this._thread["imagePath"],
                               ),
                             );
                       BlocProvider.of<ThreadBloc>(context).add(event);
                       Navigator.of(context).pushNamedAndRemoveUntil(
                           ThreadsList.routeName, (route) => false);
+                      // MaterialPageRoute(builder: (context) => ThreadsList());
+
                     }
                   },
                   label: Text('SAVE'),

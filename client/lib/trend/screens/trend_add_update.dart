@@ -58,6 +58,7 @@ class _AddUpdateTrendState extends State<AddUpdateTrend> {
                       final TrendEvent event = widget.args.edit
                           ? TrendUpdate(
                               Trend(
+                                id: widget.args.trend?.id,
                                 body: this._trend["body"],
                               ),
                             )

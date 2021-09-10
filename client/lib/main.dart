@@ -7,11 +7,16 @@ import 'thread/data_providers/thread-data-provider.dart';
 import 'thread/repository/thread-repository.dart';
 import 'thread/screens/thread_route.dart';
 
+// import 'thread/bloc_observer.dart';
+import 'trend/blocs/blocs.dart';
+import 'trend/data_providers/trend-data-provider.dart';
+import 'trend/repository/trend-repository.dart';
+import 'trend/screens/trend_route.dart';
+
 void main() {
   Bloc.observer = SimpleBlocObserver();
 
-  final ThreadRepository threadRepository =
-      ThreadRepository(ThreadDataProvider());
+  final ThreadRepository threadRepository = ThreadRepository(ThreadDataProvider());
 
   runApp(
     ThreadApp(threadRepository: threadRepository),
@@ -37,6 +42,31 @@ class ThreadApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           onGenerateRoute: ThreadAppRoute.generateRoute,
+        ),
+      ),
+    );
+  }
+}
+
+class TrendApp extends StatelessWidget {
+  final TrendRepository trendRepository;
+
+  TrendApp({required this.trendRepository});
+
+  @override
+  Widget build(BuildContext context) {
+    return RepositoryProvider.value(
+      value: this.trendRepository,
+      child: BlocProvider(
+        create: (context) => TrendBloc(trendRepository: this.trendRepository)
+          ..add(TrendLoad()),
+        child: MaterialApp(
+          title: 'Trend App',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          onGenerateRoute: TrendAppRoute.generateRoute,
         ),
       ),
     );

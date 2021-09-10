@@ -3,21 +3,17 @@ class Thread {
   final String name;
   final String date;
   final String body;
-  final String imagePath;
+  final String username;
 
-  Thread(
-      { this.id,
-      required this.name,
-      this.date = '',
-      required this.body,
-      required this.imagePath});
+  Thread({this.id, required this.name, this.date = '', required this.username,required this.body});
 
   factory Thread.fromJson(Map<String, dynamic> json) {
     return Thread(
         id: json['id'],
         name: json['name'],
         date: json['date'],
+        username: json['username'],
         body: json['body'],
-        imagePath: json['imagepath']);
+        );
   }
 }

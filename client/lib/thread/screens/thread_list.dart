@@ -18,7 +18,7 @@ class ThreadsList extends StatelessWidget {
       body: BlocBuilder<ThreadBloc, ThreadState>(
         builder: (_, state) {
           if (state is ThreadOperationFailure) {
-            return Text('Could not do course operation');
+            return Text('Could not do thread operation');
           }
 
           if (state is ThreadOperationSuccess) {
@@ -28,7 +28,7 @@ class ThreadsList extends StatelessWidget {
               itemCount: threads.length,
               itemBuilder: (_, idx) => ListTile(
                 title: Text('${threads.elementAt(idx).name}'),
-                subtitle: Text('${threads.elementAt(idx).body}'),
+                subtitle: Text('${threads.elementAt(idx).username}'),
                 onTap: () => Navigator.of(context).pushNamed(
                     ThreadDetail.routeName,
                     arguments: threads.elementAt(idx)),

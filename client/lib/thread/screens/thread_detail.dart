@@ -44,8 +44,8 @@ class ThreadDetail extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              title: Text('Title: ${this.thread.body}'),
-              subtitle: Text('ECTS: ${this.thread.imagePath}'),
+              title: Text('body: ${this.thread.body}'),
+              subtitle: Text('date: ${this.thread.date}'),
             ),
             Text(
               'Details',
@@ -57,7 +57,7 @@ class ThreadDetail extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text(this.thread.body ),
+            Text(this.thread.username ),
           ],
         ),
       ),
