@@ -8,9 +8,9 @@ CREATE TABLE admins (
 CREATE TABLE thread(
      id serial primary key,
      name varchar(255),
-     date varchar(255),
+     date DATE NOT NULL DEFAULT CURRENT_DATE,
      username varchar(255),
-     image varchar(255),
+     body varchar(255),
      admin_id   INT  references admins(id)
  );
 
@@ -24,6 +24,5 @@ CREATE TABLE trends(
 CREATE TABLE relevant_people(
      id serial primary key,
      name varchar(255),
-     image   varchar(255),
      admin_id   INT  references admins(id)
 );

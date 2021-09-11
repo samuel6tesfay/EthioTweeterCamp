@@ -5,12 +5,12 @@ const { requireAuth } = require('../middleware/authmiddleware');
 
 const threadRoutes = express.Router();
 
-threadRoutes.get('/threads',requireAuth,threads.threads);
-threadRoutes.post('/thread',requireAuth,threads.createthread);
-threadRoutes.get('/thread/:id',requireAuth,threads.thread);
+threadRoutes.get('/threads',threads.threads);
+threadRoutes.post('/thread',threads.createthread);
+threadRoutes.get('/thread/:id',threads.thread);
 
-threadRoutes.put('/thread/:id',requireAuth,threads.updatethread);
+threadRoutes.put('/thread/:id',threads.updatethread);
 
-threadRoutes.delete('/thread/:id',requireAuth,threads.deletethread);
+threadRoutes.delete('/thread/:id',threads.deletethread);
 
 module.exports = threadRoutes;

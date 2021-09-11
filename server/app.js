@@ -23,5 +23,5 @@ app.use(trendRoutes)
 app.use(relevant_peopleRoutes)
 
 
-app.listen(4003,()=>console.log("server up and running 4003"));
+app.listen(5000,()=>console.log("server up and running 5000"));
 
