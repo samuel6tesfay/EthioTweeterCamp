@@ -35,17 +35,17 @@ class _AddUpdateMostRelevantPeopleState extends State<AddUpdateMostRelevantPeopl
             children: [
               TextFormField(
                   initialValue:
-                      widget.args.edit ? widget.args.mostRelevantPeople?.body: '',
+                      widget.args.edit ? widget.args.mostRelevantPeople?.name: '',
                   validator: (value) {
                     if (value != null && value.isEmpty) {
                       return 'Please enter mostRelevantPeople';
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: 'MostRelevantPeople Code'),
+                  decoration: InputDecoration(labelText: 'MostRelevantPeople'),
                   onSaved: (value) {
                     setState(() {
-                      this._mostRelevantPeople["body"] = value;
+                      this._mostRelevantPeople["name"] = value;
                     });
                   }),
              Padding(
@@ -58,15 +58,14 @@ class _AddUpdateMostRelevantPeopleState extends State<AddUpdateMostRelevantPeopl
                       final MostRelevantPeopleEvent event = widget.args.edit
                           ? MostRelevantPeopleUpdate(
                               MostRelevantPeople(
-                                body: this._mostRelevantPeople["body"],
-                                imagePath: this._mostRelevantPeople['imagePath']
+                                id: widget.args.mostRelevantPeople?.id,
+                                name: this._mostRelevantPeople["name"],
 
                               ),
                             )
                           : MostRelevantPeopleCreate(
                               MostRelevantPeople(
-                                body: this._mostRelevantPeople["body"],
-                                imagePath: this._mostRelevantPeople['imagePath']
+                                name: this._mostRelevantPeople["name"],
                               ),
                             );
                       BlocProvider.of<MostRelevantPeopleBloc>(context).add(event);

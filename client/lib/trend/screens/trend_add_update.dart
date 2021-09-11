@@ -8,7 +8,7 @@ import 'trend_route.dart';
 import 'trend_list.dart';
 
 class AddUpdateTrend extends StatefulWidget {
-  static const routeName = 'threadAddUpdate';
+  static const routeName = 'trendAddUpdate';
   final TrendArgument args;
 
   AddUpdateTrend({required this.args});
@@ -38,11 +38,11 @@ class _AddUpdateTrendState extends State<AddUpdateTrend> {
                       widget.args.edit ? widget.args.trend?.body: '',
                   validator: (value) {
                     if (value != null && value.isEmpty) {
-                      return 'Please enter trend code';
+                      return 'Please enter trend body';
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: 'Trend Code'),
+                  decoration: InputDecoration(labelText: 'Trend body'),
                   onSaved: (value) {
                     setState(() {
                       this._trend["body"] = value;

@@ -18,7 +18,7 @@ class MostRelevantPeopleDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${this.mostRelevantPeople.body}'),
+        title: Text('${this.mostRelevantPeople.name}'),
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
@@ -44,7 +44,7 @@ class MostRelevantPeopleDetail extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              title: Text('Title: ${this.mostRelevantPeople.body}'),
+              title: Text('Title: ${this.mostRelevantPeople.name}'),
             ),
             Text(
               'Details',
@@ -56,7 +56,7 @@ class MostRelevantPeopleDetail extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            Text(this.mostRelevantPeople.body ),
+            Text(this.mostRelevantPeople.name ),
           ],
         ),
       ),

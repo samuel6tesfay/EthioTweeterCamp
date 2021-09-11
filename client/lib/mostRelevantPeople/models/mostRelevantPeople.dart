@@ -1,17 +1,14 @@
 class MostRelevantPeople {
   final int? id;
-  final String body;
-  final String imagePath;
+  final String name;
 
   MostRelevantPeople(
       { this.id,
-      required this.body,
-      required this.imagePath});
+      required this.name});
 
   factory MostRelevantPeople.fromJson(Map<String, dynamic> json) {
     return MostRelevantPeople(
         id: json['id'],
-        body: json['body'],
-        imagePath: json['imagepath']);
+        name: json['name']);
   }
 }

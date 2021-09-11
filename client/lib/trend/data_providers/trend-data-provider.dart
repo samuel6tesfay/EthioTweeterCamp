@@ -7,7 +7,7 @@ class TrendDataProvider {
   static final String _baseUrl = "http://localhost:5000/";
 
   Future<Trend> create(Trend trend) async {
-    final http.Response response = await http.post(Uri.parse(_baseUrl+"/trend"),
+    final http.Response response = await http.post(Uri.parse(_baseUrl+"trend"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
           "body": trend.body,

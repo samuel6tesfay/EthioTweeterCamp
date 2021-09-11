@@ -15,6 +15,7 @@ class ThreadsList extends StatelessWidget {
       appBar: AppBar(
         title: Text('List of Threads'),
       ),
+      
       body: BlocBuilder<ThreadBloc, ThreadState>(
         builder: (_, state) {
           if (state is ThreadOperationFailure) {

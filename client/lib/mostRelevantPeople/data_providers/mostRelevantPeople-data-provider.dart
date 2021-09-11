@@ -4,14 +4,13 @@ import '../models/models.dart';
 import 'package:http/http.dart' as http;
 
 class MostRelevantPeopleDataProvider {
-  static final String _baseUrl = "http://10.0.2.2:9191/api/v1/threads";
+  static final String _baseUrl = "http://localhost:5000/";
 
   Future<MostRelevantPeople> create(MostRelevantPeople mostRelevantPeople) async {
-    final http.Response response = await http.post(Uri.parse(_baseUrl),
+    final http.Response response = await http.post(Uri.parse(_baseUrl+"relevant_people"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
-          "body": mostRelevantPeople.body,
-          "imagePath": mostRelevantPeople.imagePath
+          "name": mostRelevantPeople.name,
         }));
 
     if (response.statusCode == 201) {
@@ -23,7 +22,7 @@ class MostRelevantPeopleDataProvider {
   }
 
   Future<MostRelevantPeople> fetchByCode() async {
-    final response = await http.get(Uri.parse(_baseUrl));
+    final response = await http.get(Uri.parse(_baseUrl+"relevant_peoples"));
 
     if (response.statusCode == 200) {
       return MostRelevantPeople.fromJson(jsonDecode(response.body));
@@ -33,7 +32,7 @@ class MostRelevantPeopleDataProvider {
   }
 
   Future<List<MostRelevantPeople>> fetchAll() async {
-    final response = await http.get(Uri.parse(_baseUrl));
+    final response = await http.get(Uri.parse(_baseUrl+"relevant_peoples"));
     if (response.statusCode == 200) {
       final mostRelevantPeoples = jsonDecode(response.body) as List;
       return mostRelevantPeoples.map((c) => MostRelevantPeople.fromJson(c)).toList();
@@ -43,12 +42,11 @@ class MostRelevantPeopleDataProvider {
   }
 
   Future<MostRelevantPeople> update(int id, MostRelevantPeople mostRelevantPeople) async {
-    final response = await http.put(Uri.parse("$_baseUrl/$id"),
+    final response = await http.put(Uri.parse(_baseUrl+"relevant_people/$id"),
         headers: <String, String>{"Content-Type": "application/json"},
         body: jsonEncode({
           "id": id,
-          "body": mostRelevantPeople.body,
-          "imagePath": mostRelevantPeople.imagePath
+          "name": mostRelevantPeople.name,
         }));
 
     if (response.statusCode == 200) {
@@ -59,7 +57,7 @@ class MostRelevantPeopleDataProvider {
   }
 
   Future<void> delete(int id) async {
-    final response = await http.delete(Uri.parse("$_baseUrl/$id"));
+    final response = await http.delete(Uri.parse(_baseUrl+"relevant_people/$id"));
     if (response.statusCode != 204) {
       throw Exception("Field to delete the mostRelevantPeople");
     }

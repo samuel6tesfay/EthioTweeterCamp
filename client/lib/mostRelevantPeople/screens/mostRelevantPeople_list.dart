@@ -1,3 +1,4 @@
+
 import '../blocs/mostRelevantPeople_bloc.dart';
 import '../blocs/mostRelevantPeople_state.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class MostRelevantPeoplesList extends StatelessWidget {
             return ListView.builder(
               itemCount: mostRelevantPeoples.length,
               itemBuilder: (_, idx) => ListTile(
-                title: Text('${mostRelevantPeoples.elementAt(idx).body}'),
+                title: Text('${mostRelevantPeoples.elementAt(idx).name}'),
                 onTap: () => Navigator.of(context).pushNamed(
                     MostRelevantPeopleDetail.routeName,
                     arguments: mostRelevantPeoples.elementAt(idx)),
