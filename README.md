@@ -1,5 +1,5 @@
 # EthioTweeterCamp
-This is a tweeter camp platform to  manage posts in the country
+This is a tweeter camp platform to  manage posts in our country
 
       Group Members
         Samuel Tesfay ATR/6874/09
