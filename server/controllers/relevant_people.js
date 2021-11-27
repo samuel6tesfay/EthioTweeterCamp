@@ -3,13 +3,12 @@ const pool = require('../models/db')
 //create a todo
 const createrelevant_people = async (req,res) =>{
     try{
-        const { name } = req.body;
+        const { name , body , link } = req.body;
         // const admin_id = req.admin_id.id;
-        const admin_id = 1;
-
+        const user_id = req.user.id;
         const newrelevant_people = await pool.query(
 
-            "insert into relevant_people (name,admin_id) values($1,$2)",[name,admin_id]
+            "insert into relevant_people (name,body,link,user_id) values($1,$2,$3,$4)",[name,body,link,user_id]
         );
         res.json(newrelevant_people[0])
         
@@ -21,10 +20,13 @@ const createrelevant_people = async (req,res) =>{
 const relevant_peoples = async (req,res) =>{
     try{
         
-        const admin_id = 1;
-        const allrelevant_peoples = await pool.query("select * from relevant_people where admin_id = $1", [admin_id]);
-    
+        // const user_id = req.user.id;
+        // const allrelevant_peoples = await pool.query("select * from relevant_people where user_id = $1", [user_id]);
+        const allrelevant_peoples = await pool.query("select * from relevant_people");
+
         res.json(allrelevant_peoples.rows);
+
+
     }catch(err){
         console.log(err.message);
     }
@@ -34,10 +36,10 @@ const relevant_peoples = async (req,res) =>{
 const relevant_people = async (req,res) =>{
     try{
         const { id } = req.params;
-        const admin_id = 1;
+        const user_id = req.user.id;
 
-        const relevant_people = await pool.query("select * from relevant_people where id = $1", [id]);
-        if (relevant_people.rows[0].admin_id == admin_id) {
+        const relevant_people = await pool.query("select * from relevant_people");
+        if (relevant_people.rows[0].user_id == user_id) {
             res.json(relevant_people.rows[0]);
 
         } else {
@@ -52,13 +54,14 @@ const relevant_people = async (req,res) =>{
 const updaterelevant_people = async (req,res) =>{
     try{
         const { id } = req.params;
-        const { name } = req.body;
-        const admin_id = 1;
+        const { name , body } = req.body;
+        const user_id = req.user.id;
+
         const relevant_people = await pool.query("select * from relevant_people where id = $1", [id]);
-        if (relevant_people.rows[0].admin_id == admin_id) {
+        if (relevant_people.rows[0].user_id == user_id) {
             const updaterelevant_people = await pool.query(
-        "update relevant_people set name = $1  where id = $2",[name,id]);
-        res.json("relevant_people was updated"); 
+        "update relevant_people set name = $1 , body  = $3  where id = $2",[name,id]);
+        res.json("relevant_peoples was updated"); 
         }else {
             res.json("fail to update")
         }
@@ -73,10 +76,10 @@ const updaterelevant_people = async (req,res) =>{
 const deleterelevant_people = async (req,res) =>{
     try{
         const { id } = req.params;
+        const user_id = req.user.id;
 
-        const admin_id = 1;
         const relevant_people = await pool.query("select * from relevant_people where id = $1", [id]);
-        if (relevant_people.rows[0].admin_id == admin_id) {
+        if (relevant_people.rows[0].user_id == user_id) {
             const deleletrelevant_people = await pool.query("delete from relevant_people where id=$1",[id]);
             res.json("relevant_people was deleted!"); 
         }else {

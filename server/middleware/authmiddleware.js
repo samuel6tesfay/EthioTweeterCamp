@@ -2,17 +2,21 @@ require('dotenv').config()
 
 const jwt = require('jsonwebtoken');
 
-const requireAuth = (req,res,next) => {
-    const token = req.cookies.jwt;
+const verifyToken = (req,res,next) => {
+    // const token = req.cookies.userInfo;
+    const token = req.headers['x-access-token']
+    // console.log(JSON.parse(JSON.stringify(token)));
+    console.log(token);
     if(token){
-        jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,decodedToken) => {
+        jwt.verify(token,process.env.ACCESS_TOKEN_SECRET,(err,user) => {
             if(err){
                 console.log(err.message);
                 res.redirect('/login');
 
             }else{
-                console.log(decodedToken.id);
-                req.admin_id = decodedToken;
+                // console.log(decodedToken.id);
+                console.log(user);
+                req.user = user;
                 next();
             }
         })
@@ -21,4 +25,32 @@ const requireAuth = (req,res,next) => {
     }
 }
 
-module.exports = {requireAuth}
+
+ const verifyTokenAndAuthorization = (req, res, next) => {
+    verifyToken(req, res, () => {
+      if (req.user.id === req.params.id || req.user.isAdmin) {
+        next();
+      } else {
+        res.status(403).json("You are not alowed to do that!");
+      }
+    });
+  };
+
+  const verifyTokenAndAdmin = (req, res, next) => {
+    verifyToken(req, res, () => {
+      if (req.user.isAdmin) {
+        next();
+      } else {
+        res.status(403).json("You are not alowed to do that!");
+      }
+    });
+  };
+
+  module.exports = {
+    verifyToken,
+    verifyTokenAndAuthorization,
+    verifyTokenAndAdmin,
+  };
+
+
+

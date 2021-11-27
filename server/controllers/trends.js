@@ -1,13 +1,13 @@
 const pool = require('../models/db')
 
-//create a todo
-const createtrend = async (req,res) =>{
+//create a trend
+const createtrend = async (req, res) => {
+    console.log("create trend")
     try{
-        const { body } = req.body;
-        // const admin_id = req.admin_id.id;
-        const admin_id = 1;
+        const { body , link } = req.body;
+        const user_id = req.user.id;
         const trend = await pool.query(
-            "insert into trends (body,admin_id) values($1,$2)",[body,admin_id]
+            "insert into trends (body,link,user_id) values($1,$2,$3)",[body,link,user_id]
         );
         res.json(trend[0])
         
@@ -19,9 +19,11 @@ const createtrend = async (req,res) =>{
 const trends = async (req,res) =>{
     try{
         
-        const admin_id = 1;
-        const alltrends = await pool.query("select * from trends where admin_id = $1", [admin_id]);
-    
+        // const user_id = req.user.id;
+        // const us_id = 1;
+        // const alltrends = await pool.query("select * from trends where user_id = $1", [user_id]);
+        const alltrends = await pool.query("select * from trends");
+
         res.json(alltrends.rows);
     }catch(err){
         console.log(err.message);
@@ -32,11 +34,10 @@ const trends = async (req,res) =>{
 const trend= async (req,res) =>{
     try{
         const { id } = req.params;
-        // const admin_id = req.admin_id.id;
-        admin_id = 1;
+        const user_id = req.user.id;
 
         const trend = await pool.query("select * from trends where id = $1", [id]);
-        if (trend.rows[0].admin_id == admin_id) {
+        if (trend.rows[0].user_id == user_id) {
             res.json(trend.rows[0]);
 
         } else {
@@ -52,9 +53,10 @@ const updatetrend = async (req,res) =>{
     try{
         const { id } = req.params;
         const { body } = req.body;
-        const admin_id = 1;
+        const user_id = req.user.id;
+
         const trend = await pool.query("select * from trends where id = $1", [id]);
-        if (trend.rows[0].admin_id == admin_id) {
+        if (trend.rows[0].user_id == user_id) {
             const updatetrend = await pool.query(
         "update trends set body = $1 where id = $2",[body,id]);
         res.json("trend was updated"); 
@@ -73,9 +75,10 @@ const deletetrend = async (req,res) =>{
     try{
         const { id } = req.params;
 
-        const admin_id = 1;
+        const user_id = req.user.id;
+
         const trend = await pool.query("select * from trends where id = $1", [id]);
-        if (trend.rows[0].admin_id == admin_id) {
+        if (trend.rows[0].user_id == user_id) {
             const deleletrend = await pool.query("delete from trends where id=$1",[id]);
             res.json("trend was deleted!"); 
         }else {
@@ -87,5 +90,5 @@ const deletetrend = async (req,res) =>{
 }
 
 module.exports = {
-    createtrend,trends , trend , updatetrend , deletetrend
+    createtrend,trends,trend,updatetrend,deletetrend
 }
